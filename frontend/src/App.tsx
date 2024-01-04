@@ -41,6 +41,7 @@ import {
 } from "react-router-dom";
 
 import Layout from "./layouts/layouts";
+import Register from "./pages/Register";
 
 const App = () => {
   return (
@@ -54,9 +55,23 @@ const App = () => {
             </Layout>
           }
         />
-        <Route path="/search" element={<Layout>
+        <Route
+          path="/search"
+          element={
+            <Layout>
               <p>Search Page</p>
-            </Layout>} />
+            </Layout>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Layout>
+              <Register />
+            </Layout>
+          }
+        />
+
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
