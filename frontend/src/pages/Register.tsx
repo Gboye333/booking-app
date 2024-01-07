@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
-type RegisterFormData = {
+
+export type RegisterFormData = {
   firstName: string;
   lastName: string;
   email: string;
@@ -14,6 +15,9 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormData>();
+
+const mutation = useMutation()
+
   const onSubmit = handleSubmit((data) => {
     console.log(data);
   });
@@ -29,7 +33,7 @@ const Register = () => {
             {...register("firstName", { required: "This field is required" })}
           ></input>
           {errors.firstName && (
-            <span>{errors.firstName.message}</span>
+            <span className="text-red-500">{errors.firstName.message}</span>
           )}
         </label>
         <label className="text-gray-700 text-sm font-bold flex-1">
@@ -38,6 +42,9 @@ const Register = () => {
             className="border rounded w-full py-1 px-2 font-normal"
             {...register("lastName", { required: "This field is required" })}
           ></input>
+          {errors.lastName && (
+          <span className="text-red-500">{errors.lastName.message}</span>  
+          )}
         </label>
       </div>
       <label className="text-gray-700 text-sm font-bold flex-1">
@@ -47,6 +54,9 @@ const Register = () => {
           className="border rounded w-full py-1 px-2 font-normal"
           {...register("email", { required: "This field is required" })}
         ></input>
+         {errors.email && (
+          <span className="text-red-500">{errors.email.message}</span>  
+          )}
       </label>
       <label className="text-gray-700 text-sm font-bold flex-1">
         Password
@@ -61,6 +71,9 @@ const Register = () => {
             },
           })}
         ></input>
+          {errors.password && (
+          <span className="text-red-500">{errors.password.message}</span>  
+          )}
       </label>
       <label className="text-gray-700 text-sm font-bold flex-1">
         Confirm Password
@@ -77,6 +90,9 @@ const Register = () => {
             },
           })}
         ></input>
+       {errors.confirmPassword && (
+          <span className="text-red-500">{errors.confirmPassword.message}</span>  
+          )}
       </label>
       <span>
         <button
