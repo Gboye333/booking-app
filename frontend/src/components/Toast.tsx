@@ -3,7 +3,7 @@ import { useEffect } from "react";
 type ToastProps = {
     message: string;
     type: "SUCCESS" | "ERROR"
-    onclose: () => void;
+    onClose: () => void;
 }
 
 const Toast = ({message, type, onClose}: ToastProps) => {
