@@ -3,6 +3,7 @@ import multer from "multer";
 import cloudinary from "cloudinary";
 import Hotel, { HotelType } from "../models/Hotel";
 import verifyToken from "../middleware/auth";
+import { body } from "express-validator";
 
 const router = express.Router();
 
@@ -15,7 +16,16 @@ const upload = multer({
 })
 
 router.post("/", 
-verifyToken,
+verifyToken, [
+  body("name").notEmpty().withMessage('Name is required'),
+  body("city").notEmpty().withMessage('City is required'),
+  body("country").notEmpty().withMessage('Country is required'),
+  body("description").notEmpty().withMessage('Description is required'),
+  body("type").notEmpty().withMessage('Hotel type is required'),
+  body("pricePerNight").notEmpty().isNumeric().withMessage('price per night is required and must be a number'),
+  body("facilities").notEmpty().isArray().withMessage('facilities are required'),
+  body("imageUrls").notEmpty().isArray().withMessage('facilities are required'),
+],
 upload.array("imageFiles", 6), async (req: Request, res: Response) => {
   try {
     const imageFiles = req.files as Express.Multer.File[];
@@ -47,3 +57,5 @@ upload.array("imageFiles", 6), async (req: Request, res: Response) => {
     res.status(500).json({message: "error while creating"})
   } 
 });
+
+export default router;
